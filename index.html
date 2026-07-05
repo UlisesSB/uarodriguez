@@ -3,130 +3,525 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecosistema Digital | Portfolio Técnico</title>
+    <title>Ulises A. Rodriguez | Software & Hardware Engineer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: rgba(20, 20, 25, 0.7);
+            --text-main: #f0f0f0;
+            --text-muted: #a0a0a0;
+            --accent-purple: #8a2be2;
+            --accent-red: #ff2a2a;
+            --gradient: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-red) 100%);
+        }
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
         }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background-color: #f4f6f9;
-            color: #333;
-            padding: 40px 20px;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(138, 43, 226, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(255, 42, 42, 0.08), transparent 25%);
+            background-attachment: fixed;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+
+        /* --- Navbar --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: #fff;
-            padding: 40px;
-            border-radius: 8px;
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .logo-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            /* Truco para ocultar las letras inferiores de la imagen */
+            object-fit: cover;
+            object-position: top;
+            border: 2px solid transparent;
+            background: var(--gradient) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover .logo-img {
+            transform: scale(1.1);
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-red);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 10%;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h2 {
+            font-size: 1.8rem;
+            color: var(--text-muted);
             margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-weight: 400;
         }
-        header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-        }
-        header p {
+
+        .hero p {
+            max-width: 600px;
             font-size: 1.1rem;
-            opacity: 0.9;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            line-height: 1.6;
         }
-        .section {
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
         }
-        .section h2 {
-            color: #1e3c72;
-            margin-bottom: 15px;
-            border-left: 4px solid #f38020; /* Color acento Cloudflare */
-            padding-left: 10px;
-            font-size: 1.5rem;
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
-        .project-grid {
-            display: block;
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
         }
-        .project-card {
-            background: #fafafa;
-            border: 1px solid #eef2f5;
-            padding: 20px;
-            border-radius: 6px;
-            margin-bottom: 15px;
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(255, 42, 42, 0.5);
+            transform: translateY(-2px);
         }
-        .project-card h3 {
-            color: #2a5298;
-            margin-bottom: 8px;
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.2);
         }
-        .tag {
+
+        .btn-secondary:hover {
+            border-color: var(--accent-purple);
+            background: rgba(138, 43, 226, 0.1);
+        }
+
+        /* --- Global Section Styles --- */
+        section {
+            padding: 100px 10%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
             display: inline-block;
-            background: #e1e7f0;
-            color: #2a5298;
-            padding: 2px 8px;
-            font-size: 0.8rem;
-            border-radius: 4px;
-            margin-right: 5px;
-            font-weight: bold;
         }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        /* --- Sobre Mí & Voluntariado --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(138, 43, 226, 0.3);
+        }
+
+        .card h3 {
+            color: var(--accent-purple);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .timeline-item {
+            border-left: 2px solid rgba(255, 42, 42, 0.3);
+            padding-left: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-red);
+        }
+
+        /* --- Proyectos --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--surface-color);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent-purple);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .project-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s;
+        }
+
+        .project-link:hover {
+            color: var(--accent-red);
+        }
+
+        /* --- Footer --- */
         footer {
             text-align: center;
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: #777;
+            padding: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            margin-top: 50px;
+        }
+
+        /* --- Animaciones Scroll --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .hero h2 { font-size: 1.4rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; } /* Ocultar links en movil por ahora */
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>Ecosistema Digital Personal</h1>
-            <p>Espacio de desarrollo, infraestructura de red y proyectos de ingeniería.</p>
-        </header>
-
-        <div class="section">
-            <h2>Sobre este sitio</h2>
-            <p>¡Bienvenido! Este dominio funciona como el nodo central de mis proyectos. Desde aquí gestiono servicios en la nube, laboratorios de pruebas y despliegues automáticos integrados con la red global de Cloudflare.</p>
+    <nav>
+        <a href="#" class="logo-container">
+            <img src="Icono.jpg" alt="Logo" class="logo-img">
+            <span class="logo-text">U. Rodriguez</span>
+        </a>
+        <div class="nav-links">
+            <a href="#perfil">Perfil</a>
+            <a href="#experiencia">Experiencia & Liderazgo</a>
+            <a href="#proyectos">Proyectos</a>
         </div>
+    </nav>
 
-        <div class="section">
-            <h2>Proyectos en desarrollo</h2>
-            <div class="project-grid">
-                
-                <div class="project-card">
-                    <h3>Infraestructura y Redes</h3>
-                    <p>Configuración de zonas DNS personalizadas, enrutamiento seguro de servicios locales mediante túneles y optimización de tráfico.</p>
-                    <div style="margin-top: 10px;">
-                        <span class="tag">Cloudflare</span>
-                        <span class="tag">DNS</span>
-                        <span class="tag">Zero Trust</span>
-                    </div>
+    <section class="hero">
+        <h1>Ulises Agustin<br>Rodriguez</h1>
+        <h2>Estudiante de Ingeniería en Computación</h2>
+        <p>Especializado en el nexo entre el desarrollo de software y el hardware de bajo nivel. Construyendo sistemas integrales, desde el diseño de PCBs y arquitecturas en la nube, hasta la implementación de modelos de Inteligencia Artificial.</p>
+        <div class="btn-group">
+            <a href="Curriculum Vitae.pdf" target="_blank" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Ver Currículum</a>
+            <a href="https://github.com/UlisesSB" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://www.linkedin.com/in/ulises-agustin-rodriguez-a3aa563b5" target="_blank" class="btn btn-secondary"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        </div>
+    </section>
+
+    <section id="perfil" class="reveal">
+        <h2 class="section-title">Perfil Técnico</h2>
+        <div class="about-grid">
+            <div class="card">
+                <h3><i class="fas fa-graduation-cap"></i> Formación Académica</h3>
+                <div class="timeline-item">
+                    <strong>Ingeniería en Computación</strong> (Mar 2022 - Act.)<br>
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">Universidad Nacional de Tucumán (FACET)</span>
                 </div>
-
-                <div class="project-card">
-                    <h3>Laboratorio de Aplicaciones</h3>
-                    <p>Espacio reservado para la integración de microservicios, bases de datos relacionales y entornos privados de ejecución (Próximamente).</p>
-                    <div style="margin-top: 10px;">
-                        <span class="tag">SQL</span>
-                        <span class="tag">Workers</span>
-                        <span class="tag">Backend</span>
-                    </div>
+                <div class="timeline-item">
+                    <strong>Maestro Mayor de Obras</strong> (Mar 2015 - Dic 2021)<br>
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">Instituto Técnico de Aguilares (ITA - UNT)</span>
                 </div>
-
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-microchip"></i> Stack Tecnológico</h3>
+                <p><strong>Lenguajes:</strong> C, C++, Python, Java, Assembly, SQL, VHDL.</p>
+                <p><strong>Hardware & Embebidos:</strong> Arquitectura RISC-V, ESP32, Comunicación Serial, PWM, Microcontroladores, Diseño de PCB.</p>
+                <p><strong>Herramientas:</strong> Git, Docker, MySQL, MongoDB, Proteus, Microcap, VS Code, AutoCAD.</p>
+                <p><strong>Idiomas:</strong> Inglés Técnico (Nivel B1 - Certificado Universitario).</p>
             </div>
         </div>
+    </section>
 
-        <footer>
-            <p>&copy; 2026 - Alojado de forma segura en Cloudflare Pages</p>
-        </footer>
-    </div>
+    <section id="experiencia" class="reveal">
+        <h2 class="section-title">Liderazgo & Experiencia</h2>
+        <div class="about-grid">
+            <div class="card">
+                <h3><i class="fas fa-users"></i> Voluntariado Académico</h3>
+                <div class="timeline-item">
+                    <strong>Presidente de la Rama Estudiantil IEEE</strong> (Jun 2026 - Act.)<br>
+                    <p style="font-size: 0.9rem; margin-top: 5px;">Liderazgo en la planificación y ejecución de iniciativas académicas en FACET-UNT, fomentando el desarrollo tecnológico y profesional en la comunidad.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>Representante Técnico - "Exactas para Todos"</strong><br>
+                    <p style="font-size: 0.9rem; margin-top: 5px;">Expositor a cargo del stand de Ing. en Computación. Demostración de proyectos de hardware/software y orientación vocacional a futuros ingresantes.</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-briefcase"></i> Experiencia Profesional</h3>
+                <div class="timeline-item">
+                    <strong>Diseño y Planificación Independiente</strong> (Jun 2025 - Act.)<br>
+                    <span style="color: var(--accent-purple); font-size: 0.85rem; font-weight: bold;">Maestro Mayor de Obras</span>
+                    <p style="font-size: 0.9rem; margin-top: 5px;">Dirección técnica, elaboración de planimetría avanzada y gestión de proyectos para infraestructuras comerciales (ej. estaciones YPF) y residenciales. Enfoque en cumplimiento normativo y plazos críticos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section id="proyectos" class="reveal">
+        <h2 class="section-title">Proyectos Destacados</h2>
+        <div class="projects-grid">
+            
+            <div class="project-card">
+                <h3>Detección Médica por IA (YOLO)</h3>
+                <p>Clasificación binaria de imágenes MRI del cerebro mediante Deep Learning. Uso de la familia de redes neuronales YOLO para el reconocimiento y segmentación automatizada de gliomas.</p>
+                <div class="tech-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Computer Vision</span>
+                    <span class="tag">YOLO / AI</span>
+                </div>
+                <a href="#" class="project-link">Ver informe completo <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="project-card">
+                <h3>Hardware Audiorrítmico "Signal"</h3>
+                <p>Diseño y fabricación manual de un circuito electrónico que divide frecuencias (graves, medios, agudos) para control lumínico dinámico. Incluye cálculo de componentes, enrutamiento de PCB e impresión 3D del chasis.</p>
+                <div class="tech-tags">
+                    <span class="tag">Diseño PCB</span>
+                    <span class="tag">Electrónica Analógica</span>
+                    <span class="tag">Impresión 3D</span>
+                </div>
+                <a href="#" class="project-link">Ver documentación <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="project-card">
+                <h3>Plataforma de Gestión Gastronómica</h3>
+                <p>Ingeniería de software end-to-end para un establecimiento comercial. Abarca desde el levantamiento de requisitos y documentación, hasta la implementación de la aplicación web y modelado de base de datos relacional.</p>
+                <div class="tech-tags">
+                    <span class="tag">Desarrollo Web</span>
+                    <span class="tag">SQL</span>
+                    <span class="tag">Ingeniería de Software</span>
+                </div>
+                <a href="#" class="project-link">Ver detalles de arquitectura <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="project-card">
+                <h3>Sistema Ambilight "UlisesGlow"</h3>
+                <p>Desarrollo de firmware para ESP32 (control PWM) y aplicación de escritorio para el procesamiento de imágenes en tiempo real. Iluminación ambiental sincronizada con la pantalla.</p>
+                <div class="tech-tags">
+                    <span class="tag">C++ / ESP32</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Com. Serial</span>
+                </div>
+                <a href="#" class="project-link">Ver en GitHub <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="project-card">
+                <h3>Sistema de Transporte (RISC-V)</h3>
+                <p>Programación de muy bajo nivel basada en arquitectura RISC-V. Desarrollo de lógica interna interactuando directamente con registros y protocolos de comunicación de hardware.</p>
+                <div class="tech-tags">
+                    <span class="tag">Assembly</span>
+                    <span class="tag">RISC-V</span>
+                    <span class="tag">Microprocesadores</span>
+                </div>
+                <a href="#" class="project-link">Ver simulación <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="project-card">
+                <h3>Arquitectura DB E-Commerce</h3>
+                <p>Diseño conceptual y lógico de base de datos híbrida (SQL + NoSQL). Gestión de roles y seguridad mediante algoritmos de hashing criptográfico (SHA-256 con salt).</p>
+                <div class="tech-tags">
+                    <span class="tag">MySQL (InnoDB)</span>
+                    <span class="tag">MongoDB</span>
+                    <span class="tag">Seguridad</span>
+                </div>
+                <a href="#" class="project-link">Ver diagramas <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Ulises Agustin Rodriguez. Alojado y distribuido mediante infraestructura Cloudflare.</p>
+    </footer>
+
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Llamada inicial
+    </script>
 </body>
 </html>
