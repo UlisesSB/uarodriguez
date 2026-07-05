@@ -1,527 +1,466 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ulises A. Rodriguez | Software & Hardware Engineer</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #050505;
-            --surface-color: rgba(20, 20, 25, 0.7);
-            --text-main: #f0f0f0;
-            --text-muted: #a0a0a0;
-            --accent-purple: #8a2be2;
-            --accent-red: #ff2a2a;
-            --gradient: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-red) 100%);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(138, 43, 226, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(255, 42, 42, 0.08), transparent 25%);
-            background-attachment: fixed;
-        }
-
-        /* --- Navbar --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            color: var(--text-main);
-        }
-
-        .logo-img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            /* Truco para ocultar las letras inferiores de la imagen */
-            object-fit: cover;
-            object-position: top;
-            border: 2px solid transparent;
-            background: var(--gradient) border-box;
-            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: destination-out;
-            mask-composite: exclude;
-            transition: transform 0.3s ease;
-        }
-        
-        .logo-container:hover .logo-img {
-            transform: scale(1.1);
-        }
-
-        .logo-text {
-            font-weight: 700;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-        }
-
-        .nav-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            margin-left: 25px;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-red);
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 0 10%;
-            position: relative;
-        }
-
-        .hero h1 {
-            font-size: 4.5rem;
-            line-height: 1.1;
-            margin-bottom: 15px;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero h2 {
-            font-size: 1.8rem;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            font-weight: 400;
-        }
-
-        .hero p {
-            max-width: 600px;
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 20px;
-        }
-
-        .btn {
-            padding: 12px 28px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-primary {
-            background: var(--gradient);
-            color: white;
-            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 6px 20px rgba(255, 42, 42, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent-purple);
-            background: rgba(138, 43, 226, 0.1);
-        }
-
-        /* --- Global Section Styles --- */
-        section {
-            padding: 100px 10%;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50%;
-            height: 3px;
-            background: var(--gradient);
-            border-radius: 2px;
-        }
-
-        /* --- Sobre Mí & Voluntariado --- */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-        }
-
-        .card {
-            background: var(--surface-color);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(138, 43, 226, 0.3);
-        }
-
-        .card h3 {
-            color: var(--accent-purple);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card p {
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-        
-        .timeline-item {
-            border-left: 2px solid rgba(255, 42, 42, 0.3);
-            padding-left: 20px;
-            margin-bottom: 25px;
-            position: relative;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -6px;
-            top: 0;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--accent-red);
-        }
-
-        /* --- Proyectos --- */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background: var(--surface-color);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 4px;
-            background: var(--gradient);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-        }
-
-        .project-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-        }
-
-        .project-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .tag {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--accent-purple);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .project-link {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: color 0.3s;
-        }
-
-        .project-link:hover {
-            color: var(--accent-red);
-        }
-
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 40px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-muted);
-            margin-top: 50px;
-        }
-
-        /* --- Animaciones Scroll --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            .hero h2 { font-size: 1.4rem; }
-            .about-grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; } /* Ocultar links en movil por ahora */
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ulises Rodríguez — Ingeniería en Computación · Software &amp; Hardware</title>
+<meta name="description" content="Portfolio de Ulises Agustín Rodríguez — Ingeniería en Computación. Proyectos en software, sistemas embebidos, IA y electrónica.">
+<link rel="icon" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-    <nav>
-        <a href="#" class="logo-container">
-            <img src="Icono.jpg" alt="Logo" class="logo-img">
-            <span class="logo-text">U. Rodriguez</span>
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">
+      <img src="assets/img/logo.png" alt="Logo Ulises Rodriguez">
+      <span>
+        Ulises Rodríguez
+        <small>SB · Ing. en Computación</small>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#perfil" lang="es">Perfil</a><a href="#perfil" lang="en">Profile</a></li>
+      <li><a href="#habilidades" lang="es">Habilidades</a><a href="#habilidades" lang="en">Skills</a></li>
+      <li><a href="#experiencia" lang="es">Experiencia</a><a href="#experiencia" lang="en">Experience</a></li>
+      <li><a href="#proyectos" lang="es">Proyectos</a><a href="#proyectos" lang="en">Projects</a></li>
+      <li><a href="#educacion" lang="es">Educación</a><a href="#educacion" lang="en">Education</a></li>
+      <li><a href="#contacto" lang="es">Contacto</a><a href="#contacto" lang="en">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="lang-toggle" aria-label="Cambiar idioma / Switch language">
+        <span class="l-es">ES</span>/<span class="l-en">EN</span>
+      </button>
+      <button class="nav-toggle" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="container hero-inner">
+    <div>
+      <p class="eyebrow"><span class="sheet">//</span> <span lang="es">Señal en vivo — Portfolio técnico</span><span lang="en">Live signal — Technical portfolio</span></p>
+      <h1>Ulises <span class="accent">Rodríguez</span></h1>
+      <p class="hero-role"><span data-role-type></span><span class="cursor">_</span></p>
+      <p class="hero-desc" lang="es">Estudiante avanzado de Ingeniería en Computación (UNT – FACET), enfocado en el desarrollo de software y sistemas de hardware. Combino programación, diseño lógico y diseño de bases de datos con experiencia previa en gestión técnica de proyectos como Maestro Mayor de Obras.</p>
+      <p class="hero-desc" lang="en">Advanced Computer Engineering student (UNT – FACET), focused on software development and hardware systems. I combine programming, digital logic design and database design with prior experience in technical project management as a Construction Site Manager.</p>
+      <div class="hero-cta">
+        <a href="#proyectos" class="btn btn-primary">
+          <span lang="es">Ver proyectos</span><span lang="en">View projects</span>
         </a>
-        <div class="nav-links">
-            <a href="#perfil">Perfil</a>
-            <a href="#experiencia">Experiencia & Liderazgo</a>
-            <a href="#proyectos">Proyectos</a>
+        <a href="assets/docs/CV_Ulises_Rodriguez.pdf" class="btn">
+          <span lang="es">Descargar CV</span><span lang="en">Download CV</span>
+        </a>
+        <a href="#contacto" class="btn">
+          <span lang="es">Contacto</span><span lang="en">Contact</span>
+        </a>
+      </div>
+      <div class="hero-meta">
+        <span><i class="dot-live"></i> <span lang="es">Abierto a oportunidades</span><span lang="en">Open to opportunities</span></span>
+        <span>Aguilares, Tucumán, Argentina</span>
+        <a href="mailto:ulisesR7771@hotmail.com">ulisesR7771@hotmail.com</a>
+        <a href="https://github.com/UlisesSB" target="_blank" rel="noopener">github.com/UlisesSB</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="chip">
+        <img src="assets/img/logo.png" alt="Ulises Rodriguez">
+      </div>
+      <div class="chip-scope">
+        <div class="chip-scope-label">
+          <span>CH1 · SIGNAL</span>
+          <span>0.5V/DIV</span>
         </div>
-    </nav>
+        <svg viewBox="0 0 300 46" data-scope>
+          <path d="M0,23 L300,23"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
 
-    <section class="hero">
-        <h1>Ulises Agustin<br>Rodriguez</h1>
-        <h2>Estudiante de Ingeniería en Computación</h2>
-        <p>Especializado en el nexo entre el desarrollo de software y el hardware de bajo nivel. Construyendo sistemas integrales, desde el diseño de PCBs y arquitecturas en la nube, hasta la implementación de modelos de Inteligencia Artificial.</p>
-        <div class="btn-group">
-            <a href="Curriculum Vitae.pdf" target="_blank" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Ver Currículum</a>
-            <a href="https://github.com/UlisesSB" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> GitHub</a>
-            <a href="https://www.linkedin.com/in/ulises-agustin-rodriguez-a3aa563b5" target="_blank" class="btn btn-secondary"><i class="fab fa-linkedin"></i> LinkedIn</a>
+<!-- ============ PERFIL ============ -->
+<section id="perfil">
+  <div class="container">
+    <p class="eyebrow"><span class="sheet">SHEET 01</span> <span lang="es">Perfil</span><span lang="en">Profile</span></p>
+    <h2 class="section-title reveal" lang="es">Quién soy</h2>
+    <h2 class="section-title reveal" lang="en">Who I am</h2>
+
+    <div class="perfil-grid">
+      <div class="perfil-text reveal">
+        <p lang="es">Soy estudiante avanzado de <strong>Ingeniería en Computación</strong> en la Universidad Nacional de Tucumán (FACET), con interés genuino tanto en el desarrollo de software como en el diseño de sistemas de hardware. Mi formación combina programación, diseño lógico digital y diseño de bases de datos, con proyectos que abarcan desde microcontroladores y arquitecturas RISC-V hasta inteligencia artificial aplicada.</p>
+        <p lang="en">I'm an advanced <strong>Computer Engineering</strong> student at Universidad Nacional de Tucumán (FACET), genuinely interested in both software development and hardware system design. My background combines programming, digital logic design and database design, with projects spanning microcontrollers and RISC-V architectures to applied artificial intelligence.</p>
+        <p lang="es">Antes de esta carrera me formé y trabajé como <strong>Maestro Mayor de Obras</strong>, lo que me dio una base sólida en diseño técnico, planificación y gestión de proyectos, una perspectiva que hoy aplico también al desarrollo de software: documentar, planificar y ejecutar con la misma rigurosidad con la que se dirige una obra.</p>
+        <p lang="en">Before this degree, I trained and worked as a <strong>Construction Site Manager</strong>, which gave me a solid foundation in technical design, planning and project management — a perspective I now bring to software development: documenting, planning and executing with the same rigor used to run a construction site.</p>
+        <p lang="es">Actualmente presido la rama estudiantil de <strong>IEEE en FACET-UNT</strong>, impulsando actividades de formación y extensión para la comunidad de ingeniería.</p>
+        <p lang="en">I currently chair the <strong>IEEE student branch at FACET-UNT</strong>, driving training and outreach activities for the engineering community.</p>
+      </div>
+
+      <div class="perfil-facts reveal">
+        <div class="perfil-fact">
+          <span class="k" lang="es">UBICACIÓN</span><span class="k" lang="en">LOCATION</span>
+          <span class="v">Aguilares, Tucumán, AR</span>
         </div>
-    </section>
-
-    <section id="perfil" class="reveal">
-        <h2 class="section-title">Perfil Técnico</h2>
-        <div class="about-grid">
-            <div class="card">
-                <h3><i class="fas fa-graduation-cap"></i> Formación Académica</h3>
-                <div class="timeline-item">
-                    <strong>Ingeniería en Computación</strong> (Mar 2022 - Act.)<br>
-                    <span style="color: var(--text-muted); font-size: 0.9rem;">Universidad Nacional de Tucumán (FACET)</span>
-                </div>
-                <div class="timeline-item">
-                    <strong>Maestro Mayor de Obras</strong> (Mar 2015 - Dic 2021)<br>
-                    <span style="color: var(--text-muted); font-size: 0.9rem;">Instituto Técnico de Aguilares (ITA - UNT)</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3><i class="fas fa-microchip"></i> Stack Tecnológico</h3>
-                <p><strong>Lenguajes:</strong> C, C++, Python, Java, Assembly, SQL, VHDL.</p>
-                <p><strong>Hardware & Embebidos:</strong> Arquitectura RISC-V, ESP32, Comunicación Serial, PWM, Microcontroladores, Diseño de PCB.</p>
-                <p><strong>Herramientas:</strong> Git, Docker, MySQL, MongoDB, Proteus, Microcap, VS Code, AutoCAD.</p>
-                <p><strong>Idiomas:</strong> Inglés Técnico (Nivel B1 - Certificado Universitario).</p>
-            </div>
+        <div class="perfil-fact">
+          <span class="k" lang="es">UNIVERSIDAD</span><span class="k" lang="en">UNIVERSITY</span>
+          <span class="v">UNT — FACET</span>
         </div>
-    </section>
-
-    <section id="experiencia" class="reveal">
-        <h2 class="section-title">Liderazgo & Experiencia</h2>
-        <div class="about-grid">
-            <div class="card">
-                <h3><i class="fas fa-users"></i> Voluntariado Académico</h3>
-                <div class="timeline-item">
-                    <strong>Presidente de la Rama Estudiantil IEEE</strong> (Jun 2026 - Act.)<br>
-                    <p style="font-size: 0.9rem; margin-top: 5px;">Liderazgo en la planificación y ejecución de iniciativas académicas en FACET-UNT, fomentando el desarrollo tecnológico y profesional en la comunidad.</p>
-                </div>
-                <div class="timeline-item">
-                    <strong>Representante Técnico - "Exactas para Todos"</strong><br>
-                    <p style="font-size: 0.9rem; margin-top: 5px;">Expositor a cargo del stand de Ing. en Computación. Demostración de proyectos de hardware/software y orientación vocacional a futuros ingresantes.</p>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-briefcase"></i> Experiencia Profesional</h3>
-                <div class="timeline-item">
-                    <strong>Diseño y Planificación Independiente</strong> (Jun 2025 - Act.)<br>
-                    <span style="color: var(--accent-purple); font-size: 0.85rem; font-weight: bold;">Maestro Mayor de Obras</span>
-                    <p style="font-size: 0.9rem; margin-top: 5px;">Dirección técnica, elaboración de planimetría avanzada y gestión de proyectos para infraestructuras comerciales (ej. estaciones YPF) y residenciales. Enfoque en cumplimiento normativo y plazos críticos.</p>
-                </div>
-            </div>
+        <div class="perfil-fact">
+          <span class="k" lang="es">CARRERA</span><span class="k" lang="en">DEGREE</span>
+          <span class="v" lang="es">Ing. en Computación</span><span class="v" lang="en">Computer Engineering</span>
         </div>
-    </section>
-
-    <section id="proyectos" class="reveal">
-        <h2 class="section-title">Proyectos Destacados</h2>
-        <div class="projects-grid">
-            
-            <div class="project-card">
-                <h3>Detección Médica por IA (YOLO)</h3>
-                <p>Clasificación binaria de imágenes MRI del cerebro mediante Deep Learning. Uso de la familia de redes neuronales YOLO para el reconocimiento y segmentación automatizada de gliomas.</p>
-                <div class="tech-tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">Computer Vision</span>
-                    <span class="tag">YOLO / AI</span>
-                </div>
-                <a href="#" class="project-link">Ver informe completo <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="project-card">
-                <h3>Hardware Audiorrítmico "Signal"</h3>
-                <p>Diseño y fabricación manual de un circuito electrónico que divide frecuencias (graves, medios, agudos) para control lumínico dinámico. Incluye cálculo de componentes, enrutamiento de PCB e impresión 3D del chasis.</p>
-                <div class="tech-tags">
-                    <span class="tag">Diseño PCB</span>
-                    <span class="tag">Electrónica Analógica</span>
-                    <span class="tag">Impresión 3D</span>
-                </div>
-                <a href="#" class="project-link">Ver documentación <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="project-card">
-                <h3>Plataforma de Gestión Gastronómica</h3>
-                <p>Ingeniería de software end-to-end para un establecimiento comercial. Abarca desde el levantamiento de requisitos y documentación, hasta la implementación de la aplicación web y modelado de base de datos relacional.</p>
-                <div class="tech-tags">
-                    <span class="tag">Desarrollo Web</span>
-                    <span class="tag">SQL</span>
-                    <span class="tag">Ingeniería de Software</span>
-                </div>
-                <a href="#" class="project-link">Ver detalles de arquitectura <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="project-card">
-                <h3>Sistema Ambilight "UlisesGlow"</h3>
-                <p>Desarrollo de firmware para ESP32 (control PWM) y aplicación de escritorio para el procesamiento de imágenes en tiempo real. Iluminación ambiental sincronizada con la pantalla.</p>
-                <div class="tech-tags">
-                    <span class="tag">C++ / ESP32</span>
-                    <span class="tag">Python</span>
-                    <span class="tag">Com. Serial</span>
-                </div>
-                <a href="#" class="project-link">Ver en GitHub <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="project-card">
-                <h3>Sistema de Transporte (RISC-V)</h3>
-                <p>Programación de muy bajo nivel basada en arquitectura RISC-V. Desarrollo de lógica interna interactuando directamente con registros y protocolos de comunicación de hardware.</p>
-                <div class="tech-tags">
-                    <span class="tag">Assembly</span>
-                    <span class="tag">RISC-V</span>
-                    <span class="tag">Microprocesadores</span>
-                </div>
-                <a href="#" class="project-link">Ver simulación <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="project-card">
-                <h3>Arquitectura DB E-Commerce</h3>
-                <p>Diseño conceptual y lógico de base de datos híbrida (SQL + NoSQL). Gestión de roles y seguridad mediante algoritmos de hashing criptográfico (SHA-256 con salt).</p>
-                <div class="tech-tags">
-                    <span class="tag">MySQL (InnoDB)</span>
-                    <span class="tag">MongoDB</span>
-                    <span class="tag">Seguridad</span>
-                </div>
-                <a href="#" class="project-link">Ver diagramas <i class="fas fa-arrow-right"></i></a>
-            </div>
-
+        <div class="perfil-fact">
+          <span class="k" lang="es">FORMACIÓN PREVIA</span><span class="k" lang="en">PRIOR TRAINING</span>
+          <span class="v" lang="es">Maestro Mayor de Obras (ITA)</span><span class="v" lang="en">Construction Site Manager (ITA)</span>
         </div>
-    </section>
+        <div class="perfil-fact">
+          <span class="k" lang="es">LIDERAZGO</span><span class="k" lang="en">LEADERSHIP</span>
+          <span class="v" lang="es">Presidente IEEE FACET-UNT</span><span class="v" lang="en">Chair, IEEE FACET-UNT</span>
+        </div>
+        <div class="perfil-fact">
+          <span class="k" lang="es">IDIOMAS</span><span class="k" lang="en">LANGUAGES</span>
+          <span class="v" lang="es">Español (nativo) · Inglés B1</span><span class="v" lang="en">Spanish (native) · English B1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <p>&copy; 2026 Ulises Agustin Rodriguez. Alojado y distribuido mediante infraestructura Cloudflare.</p>
-    </footer>
+<div class="trace">
+  <svg viewBox="0 0 1200 64" preserveAspectRatio="none">
+    <path d="M0,32 L300,32 L340,12 L500,12 L540,32 L700,32 L740,52 L900,52 L940,32 L1200,32"></path>
+    <circle cx="340" cy="12" r="3"></circle>
+    <circle cx="540" cy="32" r="3"></circle>
+    <circle cx="740" cy="52" r="3"></circle>
+    <circle cx="940" cy="32" r="3"></circle>
+  </svg>
+</div>
 
-    <script>
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-        window.addEventListener("scroll", reveal);
-        reveal(); // Llamada inicial
-    </script>
+<!-- ============ HABILIDADES ============ -->
+<section id="habilidades" class="section-alt">
+  <div class="container">
+    <p class="eyebrow"><span class="sheet">SHEET 02</span> <span lang="es">Habilidades técnicas</span><span lang="en">Technical skills</span></p>
+    <h2 class="section-title reveal" lang="es">Stack &amp; herramientas</h2>
+    <h2 class="section-title reveal" lang="en">Stack &amp; tools</h2>
+    <p class="section-lede reveal" lang="es">Un mismo criterio de ingeniería aplicado en distintas capas: del silicio al software.</p>
+    <p class="section-lede reveal" lang="en">The same engineering mindset applied across layers: from silicon to software.</p>
+
+    <div class="skills-grid reveal">
+      <div class="skill-block">
+        <h3 lang="es">Lenguajes de programación</h3>
+        <h3 lang="en">Programming languages</h3>
+        <div class="tags">
+          <span class="tag">C</span><span class="tag">C++</span><span class="tag">Python</span>
+          <span class="tag">Java</span><span class="tag" lang="es">Lenguaje Ensamblador</span><span class="tag" lang="en">Assembly</span>
+          <span class="tag">SQL (InnoDB)</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <h3>HDL</h3>
+        <div class="tags">
+          <span class="tag">VHDL</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <h3 lang="es">Hardware &amp; sistemas</h3>
+        <h3 lang="en">Hardware &amp; systems</h3>
+        <div class="tags">
+          <span class="tag">RISC-V</span>
+          <span class="tag" lang="es">Diseño de firmware</span><span class="tag" lang="en">Firmware design</span>
+          <span class="tag" lang="es">Comunicación serial</span><span class="tag" lang="en">Serial communication</span>
+          <span class="tag">PWM</span><span class="tag">ESP32</span>
+          <span class="tag" lang="es">Microcontroladores</span><span class="tag" lang="en">Microcontrollers</span>
+          <span class="tag" lang="es">Diseño de PCB</span><span class="tag" lang="en">PCB design</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <h3 lang="es">Herramientas de diseño</h3>
+        <h3 lang="en">Design tools</h3>
+        <div class="tags">
+          <span class="tag">Apache NetBeans</span><span class="tag">VS Code</span><span class="tag">Git</span>
+          <span class="tag">Proteus</span><span class="tag">MicroCap</span><span class="tag">MySQL</span>
+          <span class="tag">AutoCAD</span><span class="tag">SketchUp</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCIA / LIDERAZGO ============ -->
+<section id="experiencia">
+  <div class="container">
+    <p class="eyebrow"><span class="sheet">SHEET 03</span> <span lang="es">Experiencia &amp; liderazgo</span><span lang="en">Experience &amp; leadership</span></p>
+    <h2 class="section-title reveal" lang="es">Trayectoria profesional y extensión</h2>
+    <h2 class="section-title reveal" lang="en">Professional path &amp; outreach</h2>
+    <p class="section-lede reveal" lang="es">Gestión técnica de proyectos, liderazgo estudiantil y compromiso con la divulgación de la ingeniería.</p>
+    <p class="section-lede reveal" lang="en">Technical project management, student leadership and commitment to engineering outreach.</p>
+
+    <div class="timeline reveal">
+
+      <div class="tl-item">
+        <span class="mono-tag" lang="es">JUNIO 2026 — ACTUALIDAD</span>
+        <span class="mono-tag" lang="en">JUNE 2026 — PRESENT</span>
+        <h3 lang="es">Presidente</h3>
+        <h3 lang="en">Chapter Chair</h3>
+        <span class="org">IEEE — Rama Estudiantil FACET, UNT</span>
+        <p lang="es">Liderazgo de la rama estudiantil de IEEE en la Facultad de Ciencias Exactas y Tecnología. Coordinación de actividades de formación técnica, organización de eventos y representación institucional ante la comunidad de ingeniería.</p>
+        <p lang="en">Leading the IEEE student branch at the Facultad de Ciencias Exactas y Tecnología. Coordination of technical training activities, event organization and institutional representation within the engineering community.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="mono-tag" lang="es">JUNIO 2025 — ACTUALIDAD</span>
+        <span class="mono-tag" lang="en">JUNE 2025 — PRESENT</span>
+        <h3 lang="es">Diseño y planificación independiente</h3>
+        <h3 lang="en">Independent design &amp; planning</h3>
+        <span class="org" lang="es">Maestro Mayor de Obras</span>
+        <span class="org" lang="en">Construction Site Manager</span>
+        <ul>
+          <li lang="es">Diseño técnico, dirección y elaboración de planos arquitectónicos para proyectos comerciales y residenciales (locales comerciales, viviendas, estaciones de servicio YPF y remodelaciones).</li>
+          <li lang="en">Technical design, direction and drafting of architectural plans for commercial and residential projects (retail spaces, housing, YPF service stations and renovations).</li>
+          <li lang="es">Planificación de obra, asegurando el cumplimiento de normativas técnicas y plazos de entrega.</li>
+          <li lang="en">Site planning, ensuring compliance with technical regulations and delivery timelines.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <span class="mono-tag" lang="es">VOLUNTARIADO</span>
+        <span class="mono-tag" lang="en">VOLUNTEER WORK</span>
+        <h3 lang="es">Encargado de stand — Ingeniería en Computación</h3>
+        <h3 lang="en">Booth Lead — Computer Engineering</h3>
+        <span class="org">"Exactas para Todos" — FACET, UNT</span>
+        <p lang="es">Representación de la carrera de Ingeniería en Computación en la muestra de puertas abiertas de la facultad, orientando a estudiantes preuniversitarios y comunicando el perfil y las incumbencias de la disciplina.</p>
+        <p lang="en">Represented the Computer Engineering program at the faculty's open-house exhibition, guiding prospective students and communicating the profile and scope of the discipline.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="trace">
+  <svg viewBox="0 0 1200 64" preserveAspectRatio="none">
+    <path d="M0,32 L260,32 L300,52 L460,52 L500,32 L660,32 L700,12 L860,12 L900,32 L1200,32"></path>
+    <circle cx="300" cy="52" r="3"></circle>
+    <circle cx="500" cy="32" r="3"></circle>
+    <circle cx="700" cy="12" r="3"></circle>
+    <circle cx="900" cy="32" r="3"></circle>
+  </svg>
+</div>
+
+<!-- ============ PROYECTOS ============ -->
+<section id="proyectos" class="section-alt">
+  <div class="container">
+    <p class="eyebrow"><span class="sheet">SHEET 04</span> <span lang="es">Proyectos</span><span lang="en">Projects</span></p>
+    <h2 class="section-title reveal" lang="es">Académicos &amp; personales</h2>
+    <h2 class="section-title reveal" lang="en">Academic &amp; personal work</h2>
+    <p class="section-lede reveal" lang="es">Cada proyecto tiene su propia ficha técnica: informe, imágenes y detalle de implementación. En construcción — se irán completando próximamente.</p>
+    <p class="section-lede reveal" lang="en">Each project has its own technical sheet: report, images and implementation detail. Work in progress — will be filled in soon.</p>
+
+    <div class="proj-filters reveal">
+      <button class="proj-filter active" data-filter="all" lang="es">Todos</button>
+      <button class="proj-filter active" data-filter="all" lang="en">All</button>
+      <button class="proj-filter" data-filter="software">Software</button>
+      <button class="proj-filter" data-filter="ia">IA</button>
+      <button class="proj-filter" data-filter="hardware" lang="es">Hardware &amp; Electrónica</button>
+      <button class="proj-filter" data-filter="hardware" lang="en">Hardware &amp; Electronics</button>
+      <button class="proj-filter" data-filter="sistemas" lang="es">Sistemas Embebidos</button>
+      <button class="proj-filter" data-filter="sistemas" lang="en">Embedded Systems</button>
+      <button class="proj-filter" data-filter="datos" lang="es">Bases de Datos</button>
+      <button class="proj-filter" data-filter="datos" lang="en">Databases</button>
+    </div>
+
+    <div class="proj-grid reveal">
+
+      <a href="proyectos/signal.html" class="proj-card" data-cat="hardware">
+        <span class="proj-cat" lang="es">Electrónica · Proyecto personal</span>
+        <span class="proj-cat" lang="en">Electronics · Personal project</span>
+        <h3>"Signal" — <span lang="es">Circuito audiorrítmico</span><span lang="en">Audio-reactive circuit</span></h3>
+        <p lang="es">Circuito 100% analógico que ajusta volumen y reacciona con luces intermitentes a agudos, medios y graves. Diseño de todas las etapas, fabricación manual de PCB y carcasa modelada e impresa en 3D.</p>
+        <p lang="en">Fully analog circuit that adjusts volume and drives lights reacting to highs, mids and lows. Full stage design, hand-fabricated PCB, and a 3D-modeled and printed enclosure.</p>
+        <div class="proj-tags">
+          <span lang="es">Electrónica analógica</span><span lang="en">Analog electronics</span>
+          <span lang="es">Fabricación de PCB</span><span lang="en">PCB fabrication</span>
+          <span lang="es">Modelado 3D</span><span lang="en">3D modeling</span>
+        </div>
+        <span class="proj-link">
+          <span lang="es">Ver ficha técnica</span><span lang="en">View technical sheet</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a href="proyectos/mri-glioma-yolo.html" class="proj-card" data-cat="ia">
+        <span class="proj-cat" lang="es">Inteligencia artificial</span>
+        <span class="proj-cat" lang="en">Artificial intelligence</span>
+        <h3 lang="es">Clasificación binaria de gliomas en MRI</h3>
+        <h3 lang="en">Binary glioma classification in brain MRI</h3>
+        <p lang="es">Modelo de clasificación binaria sobre imágenes de resonancia magnética cerebral para la detección de gliomas, utilizando la familia de arquitecturas YOLO adaptadas a clasificación de imágenes médicas.</p>
+        <p lang="en">Binary classification model over brain MRI scans for glioma detection, using the YOLO family of architectures adapted to medical image classification.</p>
+        <div class="proj-tags">
+          <span>YOLO</span><span>Python</span>
+          <span lang="es">Visión por computadora</span><span lang="en">Computer vision</span>
+        </div>
+        <span class="proj-link">
+          <span lang="es">Ver ficha técnica</span><span lang="en">View technical sheet</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a href="proyectos/gestion-gastronomica.html" class="proj-card" data-cat="software">
+        <span class="proj-cat" lang="es">Ingeniería de software</span>
+        <span class="proj-cat" lang="en">Software engineering</span>
+        <h3 lang="es">Sistema de gestión gastronómica</h3>
+        <h3 lang="en">Restaurant management system</h3>
+        <p lang="es">Aplicación web para la gestión integral de un establecimiento gastronómico: documentación, diseño e implementación de la aplicación y de su base de datos, desde el relevamiento de requisitos hasta el despliegue.</p>
+        <p lang="en">Web application for the end-to-end management of a food-service establishment: documentation, design and implementation of the application and its database, from requirements gathering to deployment.</p>
+        <div class="proj-tags">
+          <span lang="es">Aplicación web</span><span lang="en">Web application</span>
+          <span lang="es">Base de datos</span><span lang="en">Database</span>
+          <span lang="es">Documentación técnica</span><span lang="en">Technical documentation</span>
+        </div>
+        <span class="proj-link">
+          <span lang="es">Ver ficha técnica</span><span lang="en">View technical sheet</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a href="proyectos/transporte-riscv.html" class="proj-card" data-cat="sistemas">
+        <span class="proj-cat" lang="es">Sistemas con microprocesadores</span>
+        <span class="proj-cat" lang="en">Microprocessor systems</span>
+        <h3 lang="es">Sistema de gestión para transporte (RISC-V)</h3>
+        <h3 lang="en">Transit fare-management system (RISC-V)</h3>
+        <p lang="es">Diseño teórico, simulación y programación de bajo nivel sobre arquitectura RISC-V para un servicio de transporte: lógica de cobro, conteo de pasajeros y geolocalización, interactuando con registros y protocolos de hardware.</p>
+        <p lang="en">Theoretical design, simulation and low-level programming on RISC-V architecture for a transit service: fare logic, passenger counting and geolocation, interacting directly with hardware registers and protocols.</p>
+        <div class="proj-tags">
+          <span>RISC-V</span><span lang="es">Assembly</span><span lang="en">Assembly</span>
+          <span lang="es">Simulación</span><span lang="en">Simulation</span>
+        </div>
+        <span class="proj-link">
+          <span lang="es">Ver ficha técnica</span><span lang="en">View technical sheet</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a href="proyectos/db-ecommerce.html" class="proj-card" data-cat="datos">
+        <span class="proj-cat" lang="es">Bases de datos</span>
+        <span class="proj-cat" lang="en">Databases</span>
+        <h3 lang="es">Arquitectura de base de datos para e-commerce</h3>
+        <h3 lang="en">Database architecture for e-commerce</h3>
+        <p lang="es">Diseño conceptual, lógico e implementación física de una base de datos híbrida (SQL InnoDB + NoSQL MongoDB), con consultas analíticas, permisos por rol y seguridad mediante hashing SHA-256 con salt.</p>
+        <p lang="en">Conceptual and logical design and physical implementation of a hybrid database (SQL InnoDB + NoSQL MongoDB), with analytical queries, role-based permissions and SHA-256-with-salt hashing for data security.</p>
+        <div class="proj-tags">
+          <span>SQL (InnoDB)</span><span>MongoDB</span><span>SHA-256</span>
+        </div>
+        <span class="proj-link">
+          <span lang="es">Ver ficha técnica</span><span lang="en">View technical sheet</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a href="proyectos/ulisesglow.html" class="proj-card" data-cat="hardware">
+        <span class="proj-cat" lang="es">Hardware &amp; software · Proyecto personal</span>
+        <span class="proj-cat" lang="en">Hardware &amp; software · Personal project</span>
+        <h3>Ambilight "UlisesGlow"</h3>
+        <p lang="es">Sistema de iluminación ambiental sincronizada de principio a fin: firmware para ESP32 (control PWM), aplicación de escritorio en Python para procesamiento de imágenes, comunicación serial y etapa de potencia diseñada a medida. Código y PCB de código abierto.</p>
+        <p lang="en">End-to-end synchronized ambient lighting system: ESP32 firmware (PWM control), a Python desktop app for image processing, serial communication and a custom-designed power stage. Open-source code and PCB.</p>
+        <div class="proj-tags">
+          <span>ESP32</span><span>PWM</span><span>Python</span><span lang="es">Diseño de PCB</span><span lang="en">PCB design</span>
+        </div>
+        <span class="proj-link">
+          <span lang="es">Ver ficha técnica</span><span lang="en">View technical sheet</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ EDUCACIÓN / IDIOMAS ============ -->
+<section id="educacion">
+  <div class="container">
+    <p class="eyebrow"><span class="sheet">SHEET 05</span> <span lang="es">Educación e idiomas</span><span lang="en">Education &amp; languages</span></p>
+    <h2 class="section-title reveal" lang="es">Formación</h2>
+    <h2 class="section-title reveal" lang="en">Education</h2>
+
+    <div class="edu-lang-grid reveal">
+      <div class="card">
+        <div class="edu-item">
+          <h3 lang="es">Ingeniería en Computación</h3>
+          <h3 lang="en">Computer Engineering</h3>
+          <span class="org">Universidad Nacional de Tucumán — FACET</span>
+          <span class="mono-tag" lang="es">MARZO 2022 — ACTUALIDAD</span>
+          <span class="mono-tag" lang="en">MARCH 2022 — PRESENT</span>
+        </div>
+        <div class="edu-item">
+          <h3 lang="es">Maestro Mayor de Obras</h3>
+          <h3 lang="en">Construction Site Manager</h3>
+          <span class="org" lang="es">Universidad Nacional de Tucumán — Instituto Técnico de Aguilares (ITA)</span>
+          <span class="org" lang="en">Universidad Nacional de Tucumán — Instituto Técnico de Aguilares (ITA)</span>
+          <span class="mono-tag" lang="es">MARZO 2015 — DICIEMBRE 2021</span>
+          <span class="mono-tag" lang="en">MARCH 2015 — DECEMBER 2021</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="lang-row">
+          <span lang="es">Español</span><span lang="en">Spanish</span>
+          <div class="lang-bar"><i style="width:100%"></i></div>
+        </div>
+        <div class="lang-row">
+          <span>English — B1 <span class="mono-tag" lang="es">(lectura técnica)</span><span class="mono-tag" lang="en">(technical reading)</span></span>
+          <div class="lang-bar"><i style="width:55%"></i></div>
+        </div>
+        <p class="mono-tag" style="margin-top:14px;display:block" lang="es">Examen de suficiencia de inglés — FACET, UNT</p>
+        <p class="mono-tag" style="margin-top:14px;display:block" lang="en">English proficiency exam — FACET, UNT</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACTO ============ -->
+<section id="contacto" class="section-alt">
+  <div class="container contact-wrap">
+    <div>
+      <p class="eyebrow"><span class="sheet">SHEET 06</span> <span lang="es">Contacto</span><span lang="en">Contact</span></p>
+      <h2 class="section-title reveal" lang="es">Hablemos</h2>
+      <h2 class="section-title reveal" lang="en">Let's talk</h2>
+      <p class="section-lede reveal" lang="es">Disponible para prácticas profesionales, proyectos freelance y colaboraciones técnicas.</p>
+      <p class="section-lede reveal" lang="en">Available for internships, freelance projects and technical collaborations.</p>
+    </div>
+
+    <div class="contact-list reveal">
+      <a href="mailto:ulisesR7771@hotmail.com">
+        <span class="ico">@</span>
+        <span><small>EMAIL</small>ulisesR7771@hotmail.com</span>
+      </a>
+      <a href="tel:+543865622151">
+        <span class="ico">#</span>
+        <span><small lang="es">TELÉFONO</small><small lang="en">PHONE</small>+54 3865 622151</span>
+      </a>
+      <a href="https://www.linkedin.com/in/ulises-agustin-rodriguez-a3aa563b5" target="_blank" rel="noopener">
+        <span class="ico">in</span>
+        <span><small>LINKEDIN</small>ulises-agustin-rodriguez</span>
+      </a>
+      <a href="https://github.com/UlisesSB" target="_blank" rel="noopener">
+        <span class="ico">&lt;/&gt;</span>
+        <span><small>GITHUB</small>UlisesSB</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© <span data-year></span> Ulises Agustín Rodríguez — <span lang="es">Aguilares, Tucumán, Argentina</span><span lang="en">Aguilares, Tucumán, Argentina</span></span>
+    <span>REV 1.0 · BUILD/2026</span>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
 </body>
 </html>
