@@ -226,6 +226,64 @@
     });
   }
 
+  /* ---------------- self-healing image loader ----------------
+     Tries a list of likely file locations for an image and swaps it
+     in the moment one responds. Falls back silently (keeps the
+     placeholder icon) if none of them exist. */
+  function loadFirstAvailableImage(candidates, onSuccess) {
+    var i = 0;
+    function tryNext() {
+      if (i >= candidates.length) return;
+      var probe = new Image();
+      probe.onload = function () {
+        onSuccess(candidates[i]);
+      };
+      probe.onerror = function () {
+        i++;
+        tryNext();
+      };
+      probe.src = candidates[i];
+    }
+    tryNext();
+  }
+
+  /* profile photo — replaces the "foto próximamente" back face
+     the moment foto.jpg (or a close variant) is found */
+  var chipBack = document.querySelector(".chip-face-back");
+  if (chipBack) {
+    loadFirstAvailableImage(
+      [
+        "assets/img/foto.jpg", "assets/img/foto.jpeg", "assets/img/foto.png",
+        "assets/img/perfil/foto.jpg",
+        "foto.jpg", "Foto.jpg", "foto.jpeg", "foto.png"
+      ],
+      function (src) {
+        chipBack.innerHTML = '<img src="' + src + '" alt="Ulises Rodriguez">';
+        chipBack.classList.add("has-photo");
+      }
+    );
+  }
+
+  /* project card logos */
+  document.querySelectorAll("[data-logo-slug]").forEach(function (el) {
+    var slug = el.getAttribute("data-logo-slug");
+    loadFirstAvailableImage(
+      [
+        "assets/img/proyectos/" + slug + ".jpg",
+        "assets/img/proyectos/" + slug + ".jpeg",
+        "assets/img/proyectos/" + slug + ".png",
+        "proyectos/" + slug + ".jpg",
+        "proyectos/img/" + slug + ".jpg",
+        "assets/img/" + slug + ".jpg",
+        slug + ".jpg"
+      ],
+      function (src) {
+        el.innerHTML = '<img src="' + src + '" alt="' + slug + '">';
+        el.classList.add("has-logo");
+      }
+    );
+  });
+
   /* ---------------- current year ---------------- */
   document.querySelectorAll("[data-year]").forEach(function (el) {
     el.textContent = new Date().getFullYear();

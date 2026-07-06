@@ -42,14 +42,31 @@ assets/docs/proyectos/.
 
 ## Logos de cada proyecto
 En el home, cada tarjeta de proyecto tiene un recuadro chico y punteado
-(`<span class="proj-logo">`) al lado del título, con un ícono genérico
-de placeholder. Para poner tu propio logo (1:1, se muestra chico a
-propósito para acompañar el título, no como imagen protagonista):
+(`<span class="proj-logo">`) al lado del título. El sitio ahora busca
+la imagen automáticamente en varias ubicaciones típicas (ver
+`assets/js/main.js`, función `loadFirstAvailableImage`), así que no
+hace falta tocar el HTML — alcanza con subir el archivo. La ubicación
+recomendada (la primera que se prueba) es:
 
-1. Guardá el logo en `assets/img/proyectos/<slug>.png` (ej:
-   `assets/img/proyectos/signal.png`, `assets/img/proyectos/ulumiglow.png`).
-2. En `index.html`, buscá la tarjeta correspondiente y reemplazá el
-   contenido de `<span class="proj-logo">...</span>` por:
-   `<span class="proj-logo"><img src="assets/img/proyectos/signal.png" alt="Signal"></span>`
-   (ajustando el nombre de archivo). El recuadro ya está dimensionado
-   (32×32px) así que la imagen se recorta sola en un cuadrado prolijo.
+```
+assets/img/proyectos/<slug>.jpg
+```
+
+Con `<slug>` = el mismo nombre del archivo .html (signal, ulumiglow,
+mri-glioma-yolo, transporte-riscv, db-ecommerce,
+gestion-gastronomica). También revisa `proyectos/<slug>.jpg` y un
+puñado de rutas más por si lo subiste en otro lugar.
+
+## Foto de perfil
+El logo del hero hace un flip automático hacia tu foto. Se busca en
+varias rutas, la recomendada es:
+
+```
+assets/img/foto.jpg
+```
+
+⚠️ Los nombres de archivo son sensibles a mayúsculas/minúsculas en
+Cloudflare Pages (a diferencia de Windows). "Foto.jpg" y "foto.jpg"
+son archivos distintos para el servidor — si subiste uno y no aparece,
+revisá que el nombre coincida exactamente (en minúsculas) con lo que
+espera el sitio.

@@ -375,6 +375,12 @@ html[data-lang="es"] .lang-toggle .l-en{ color:var(--text-dim); font-weight:400;
   letter-spacing:.04em;
   text-align:center;
 }
+.chip-face-back.has-photo{ padding:0; }
+.chip-face-back.has-photo img{
+  width:100%; height:100%;
+  object-fit:cover;
+  border-radius:10px;
+}
 @keyframes chipflip{
   0%, 42%   { transform:rotateY(0deg); }
   50%, 92%  { transform:rotateY(180deg); }
@@ -650,6 +656,7 @@ section{ padding:96px 0; position:relative; }
 .proj-logo img{ width:100%; height:100%; object-fit:cover; border-radius:6px; }
 .proj-logo svg{ width:14px; height:14px; }
 .proj-card:hover .proj-logo{ border-color:var(--red-dim); color:var(--text-dim); }
+.proj-logo.has-logo{ border-style:solid; border-color:var(--border); }
 .proj-title-row h3{ margin-bottom:0; }
 .proj-badge{
   font-family:var(--font-mono);
