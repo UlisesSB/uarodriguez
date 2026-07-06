@@ -644,7 +644,7 @@ section{ padding:96px 0; position:relative; }
   margin-bottom:10px;
 }
 .proj-logo{
-  width:32px; height:32px;
+  width:64px; height:64px;
   border-radius:7px;
   border:1.5px dashed var(--border);
   background:var(--bg-alt);
