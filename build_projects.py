@@ -53,6 +53,9 @@ TEMPLATE = """<!DOCTYPE html>
       <span lang="es">Volver a proyectos</span><span lang="en">Back to projects</span>
     </a>
     <p class="eyebrow"><span class="sheet">{sheet_code}</span> <span lang="es">{category_es}</span><span lang="en">{category_en}</span></p>
+    <span class="proj-badge {badge_class}" style="margin-bottom:16px;display:inline-block;">
+      <span lang="es">{badge_es}</span><span lang="en">{badge_en}</span>
+    </span>
     <h1 lang="es">{title_es}</h1>
     <h1 lang="en">{title_en}</h1>
     <p class="hero-desc" lang="es">{summary_es}</p>
@@ -152,12 +155,13 @@ def tag(t):
 
 projects = [
     dict(
-        slug="ulisesglow",
+        slug="ulumiglow",
         sheet_code="PRJ.01",
-        title_es='Ambilight "UlisesGlow"',
-        title_en='Ambilight "UlisesGlow"',
-        category_es="Hardware &amp; software · Proyecto personal",
-        category_en="Hardware &amp; software · Personal project",
+        is_personal=True,
+        title_es='Ambilight "UlumiGlow"',
+        title_en='Ambilight "UlumiGlow"',
+        category_es="Hardware &amp; software",
+        category_en="Hardware &amp; software",
         type_es="Proyecto personal / código abierto",
         type_en="Personal project / open source",
         date_es="2024 — 2025",
@@ -246,11 +250,11 @@ projects = [
         sheet_code="PRJ.06",
         title_es='"Signal" — Circuito audiorrítmico',
         title_en='"Signal" — Audio-reactive circuit',
-        category_es="Electrónica · Proyecto personal",
-        category_en="Electronics · Personal project",
-        type_es="Proyecto personal",
-        type_en="Personal project",
-        date_es="Proyecto personal",
+        category_es="Electrónica",
+        category_en="Electronics",
+        type_es="Proyecto académico",
+        type_en="Academic project",
+        date_es="Proyecto académico",
         stack_short="Electrónica analógica · PCB",
         summary_es='Circuito 100% electrónico que ajusta volumen de audio y controla luces intermitentes reactivas a agudos, medios y graves.',
         summary_en='Fully electronic circuit that adjusts audio volume and drives intermittent lights reacting to highs, mids and lows.',
@@ -265,6 +269,10 @@ os.makedirs(OUT, exist_ok=True)
 
 for p in projects:
     tags_html = "\n          ".join(tag(t) for t in p["tags"])
+    is_personal = p.get("is_personal", False)
+    badge_class = "personal" if is_personal else "academic"
+    badge_es = "Personal" if is_personal else "Académico"
+    badge_en = "Personal" if is_personal else "Academic"
     if p["repo"]:
         repo_button = (
             '<a href="{repo}" target="_blank" rel="noopener" class="btn report-btn">'
@@ -294,6 +302,9 @@ for p in projects:
         long_en=p["long_en"],
         tags_html=tags_html,
         repo_button=repo_button,
+        badge_class=badge_class,
+        badge_es=badge_es,
+        badge_en=badge_en,
     )
     with open(os.path.join(OUT, p["slug"] + ".html"), "w", encoding="utf-8") as f:
         f.write(html)

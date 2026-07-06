@@ -172,6 +172,60 @@
     });
   }
 
+  /* ---------------- copy email to clipboard ---------------- */
+  document.querySelectorAll("[data-copy]").forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      e.preventDefault();
+      var value = el.getAttribute("data-copy");
+      var showFeedback = function () {
+        var tip = el.querySelector(".copy-feedback");
+        if (!tip) {
+          tip = document.createElement("span");
+          tip.className = "copy-feedback";
+          tip.setAttribute("lang", "es");
+          tip.textContent = "Copiado ✓";
+          var tipEn = document.createElement("span");
+          tipEn.className = "copy-feedback";
+          tipEn.setAttribute("lang", "en");
+          tipEn.textContent = "Copied ✓";
+          el.appendChild(tip);
+          el.appendChild(tipEn);
+        }
+        el.querySelectorAll(".copy-feedback").forEach(function (t) {
+          t.classList.add("show");
+        });
+        setTimeout(function () {
+          el.querySelectorAll(".copy-feedback").forEach(function (t) {
+            t.classList.remove("show");
+          });
+        }, 1600);
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(value).then(showFeedback).catch(showFeedback);
+      } else {
+        showFeedback();
+      }
+    });
+  });
+
+  /* ---------------- subtle tilt on hover (cards + chip) ---------------- */
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduceMotion && window.matchMedia("(hover: hover)").matches) {
+    document.querySelectorAll(".proj-card").forEach(function (card) {
+      card.addEventListener("mousemove", function (e) {
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform =
+          "translateY(-4px) perspective(700px) rotateX(" + (-y * 6).toFixed(2) + "deg) rotateY(" + (x * 6).toFixed(2) + "deg)";
+      });
+      card.addEventListener("mouseleave", function () {
+        card.style.transform = "";
+      });
+    });
+  }
+
   /* ---------------- current year ---------------- */
   document.querySelectorAll("[data-year]").forEach(function (el) {
     el.textContent = new Date().getFullYear();
